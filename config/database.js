@@ -16,7 +16,16 @@ db.sequelize = sequelize;
 
 //Models 
 db.User = require('../models/User')(sequelize, Sequelize.DataTypes);
+db.Match = require('../models/Match')(sequelize, Sequelize.DataTypes);
+db.MatchResult = require('../models/MatchResult')(sequelize, Sequelize.DataTypes);
+db.Player = require('../models/Player')(sequelize, Sequelize.DataTypes);
+db.Team = require('../models/Team')(sequelize, Sequelize.DataTypes);
+db.Standing = require('../models/Standing')(sequelize, Sequelize.DataTypes);
+db.Tournament = require('../models/Tournament')(sequelize, Sequelize.DataTypes);
 
 
+Object.keys(db).forEach(modelName => {
+  if (db[modelName].associate) db[modelName].associate(db);
+});
 
 module.exports = db;
