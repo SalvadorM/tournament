@@ -16,10 +16,8 @@ class userController {
         }
         catch(e) {
             console.error(e); // Log error for debugging
-            res.status(500).json({ error: 'Server error' });
+            res.status(500).json({ error: 'Server error', errorData: e})
         }
-
-
     }
 }
 

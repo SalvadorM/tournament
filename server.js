@@ -6,6 +6,7 @@ const app = express()
 
 //get routes 
 const userRoutes = require('./routes/userRoutes');
+const tournamentRoutes = require('./routes/tournamentRoutes');
 
 //database sequelize init
 const db = require('./config/database');
@@ -15,12 +16,13 @@ const PORT = process.env.PORT || 3000;
 
 //Middleware
 //Parse req as json
+app.use( express.urlencoded() );
 app.use( express.json() );
 
 
 //Routes
 app.use( '/user' , userRoutes );
-
+app.use( '/tournament' , tournamentRoutes );
 
 app.get('/', (req, res) => {
     res.send('Hello from AWS Lightsail!');
