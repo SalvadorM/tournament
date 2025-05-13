@@ -1,6 +1,6 @@
 module.exports = ( sequelize, DataTypes ) => {
     const Standing = sequelize.define( 'standing', {
-        tournament_id: {
+        tournamentId: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
@@ -36,7 +36,7 @@ module.exports = ( sequelize, DataTypes ) => {
 
     //create helper association helper
     Standing.associate = ( db ) => {
-        Standing.belongsTo(db.Tournament, { foreignKey: 'tournament_id' });
+        Standing.belongsTo(db.Tournament, { foreignKey: 'tournamentId' });
         Standing.belongsTo(db.Team, { foreignKey: 'team_id' });
     }
 

@@ -22,6 +22,7 @@ db.Player = require('../models/Player')(sequelize, Sequelize.DataTypes);
 db.Team = require('../models/Team')(sequelize, Sequelize.DataTypes);
 db.Standing = require('../models/Standing')(sequelize, Sequelize.DataTypes);
 db.Tournament = require('../models/Tournament')(sequelize, Sequelize.DataTypes);
+db.TeamTournament = require('../models/TeamTournament')(sequelize, Sequelize.DataTypes);
 
 
 //If a table schema has an association 

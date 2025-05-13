@@ -18,8 +18,8 @@ class tournamentController {
             res.status(500).json({ error: 'Server error', errorData: e})
         }
     }
-    //@route    GET tournament/all
-    //@desc     Get the all the tournaments from database
+    //@route    POST tournament/create
+    //@desc     Create a new tournament
     async createTournament( req, res ) {
         try {
             const formattedData = {
