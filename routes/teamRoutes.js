@@ -12,5 +12,8 @@ router.get('/tournament/:tournamentId', teamController.getAllTeamsTournament );
 router.get('/all', teamController.getAllTeams );
 //@route    POST team/create
 router.post('/create', teamController.createTeam );
+//@route    PUT team/
+router.put('/:teamId', teamController.updateTeam );
+
 
 module.exports = router;

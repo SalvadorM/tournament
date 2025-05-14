@@ -17,7 +17,7 @@ module.exports = ( sequelize, DataTypes ) => {
 
     //Create helper function
     Player.associate = ( db ) => {
-        Player.belongsTo(db.Team, { foreignKey: 'team_id' });
+        Team.belongsToMany( db.Team, { through: db.TeamTournament } );
     }
 
 

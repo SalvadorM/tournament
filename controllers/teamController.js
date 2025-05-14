@@ -38,7 +38,6 @@ class teamController {
         }
     }
 
-
     //@route    POST team/create
     //@desc     create a new team using tournamentId
     async createTeam( req, res ) {
@@ -56,6 +55,26 @@ class teamController {
             }
             
         } catch( error ) {
+            console.log( error )
+            res.status(400).json( {success: false, error} );
+        }
+    }
+
+    //route     UPDATE team/:teamId
+    async updateTeam( req, res ){
+        try {
+            const { name } = req.body;
+            const id = req.params.teamId
+            const [updatedTeam] = await Team.update( {name} , {where: {id} } )
+
+            if (updatedTeam) {
+                const updatedUser = await Team.findByPk(id);
+                res.status(200).json(updatedUser);
+              } else {
+                res.status(404).json({ error: 'Team not found' });
+              }
+        }
+        catch( error ) {
             console.log( error )
             res.status(400).json( {success: false, error} );
         }

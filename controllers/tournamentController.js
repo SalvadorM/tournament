@@ -39,6 +39,8 @@ class tournamentController {
             res.status(400).json( {success: false, error} );
         }
     }
+
+    
 }
 
 module.exports = new tournamentController;
