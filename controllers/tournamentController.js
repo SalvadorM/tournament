@@ -22,16 +22,13 @@ class tournamentController {
     //@desc     Create a new tournament
     async createTournament( req, res ) {
         try {
-            const formattedData = {
-                name: req.body.name,
-                season: req.body.season
-            }
+            const { name, season } = req.body
     
-            const foundDuplicate = await Tournament.findOne({where: formattedData});
+            const foundDuplicate = await Tournament.findOne({where: { name, season }});
             if ( foundDuplicate ) {
                 res.json({success: false, error: 'Duplicate Found'});
             } else {
-                const newTournament = await Tournament.create(formattedData);
+                const newTournament = await Tournament.create({ name, season });
                 res.json({success: true, data: newTournament });
             }
         } catch ( error ) {

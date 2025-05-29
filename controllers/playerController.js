@@ -10,8 +10,9 @@ class playerController {
     //@desc     Get the all the players from team 
     async getAllPlayersTeam( req, res ) {
         try {
+            const { teamId } = req.params
             const teams = await Team.findAll({
-                where: { id: req.params.teamId },
+                where: { id: teamId },
                 include: [{ model: Player, as: 'Players' }]
             })
             res.json({success: true, data: teams });
@@ -29,17 +30,59 @@ class playerController {
     async createPlayer( req, res ) {
         try {
 
-            const foundPlayerDuplicate = await Player.findOne({where: {name: req.body.name}})
+            const { name, teamId} = req.body
+            const foundPlayerDuplicate = await Player.findOne({where: {name}})
 
             if ( foundPlayerDuplicate ) {
                 res.json({success: false, error: 'Duplicate Found'});
             } else {
-                const { name, teamId } = req.body;
                 const player = await Player.create({ name, teamId });
                 res.json({ success: true, data: player })
             }
             
         } catch( error ) {
+            console.log( error )
+            res.status(400).json( {success: false, error} );
+        }
+    }
+
+    //@route     DELETE player/delete/:playerId
+    //@desc      Delete a player by playerId
+    async deletePlayer( req, res ){
+        try {
+            const { playerId } = req.params;
+            const player = await Player.findByPk(playerId)
+
+            if( !player ){
+                return res.status(404).json({ success: false, error: 'Player not found' });
+            }
+
+            await player.destroy();
+            res.json({ success: true, message: 'Player deleted successfully' });
+
+        } catch( error ){
+            console.log( error )
+            res.status(400).json( {success: false, error} );
+        }
+    }
+
+    //@route     PUT  player/update/:playerId
+    //@desc      update a player based on playerId and body name, teamId
+    async updatePlayer( req, res ){
+        try {
+            const { playerId } = req.params;
+            const { name, teamId } = req.body
+
+            const player = await Player.findByPk(playerId)
+
+            if( !player ) {
+                return res.status(404).json({success: false, error: 'Player not found'})
+            }
+
+            await Player.update({name, teamId})
+            res.json({ success: true, data: player})
+            
+        } catch( error ){
             console.log( error )
             res.status(400).json( {success: false, error} );
         }

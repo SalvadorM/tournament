@@ -61,7 +61,7 @@ class teamController {
     }
 
     //route     UPDATE team/:teamId
-    async updateTeam( req, res ){
+    async updateTeam( req, res ) {
         try {
             const { name } = req.body;
             const id = req.params.teamId
