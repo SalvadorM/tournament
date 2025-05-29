@@ -1,8 +1,8 @@
 module.exports = ( sequelize, DataTypes ) => {
     //create db Schema
     const Player = sequelize.define( 'player', {
-        team_id: {
-            type: DataTypes.INTEGER,
+        name: {
+            type: DataTypes.STRING,
             allowNull: false
         },
         goals: {
@@ -17,7 +17,7 @@ module.exports = ( sequelize, DataTypes ) => {
 
     //Create helper function
     Player.associate = ( db ) => {
-        Team.belongsToMany( db.Team, { through: db.TeamTournament } );
+        Player.belongsTo( db.Team, { foreignKey: 'teamId', as: 'team'} );
     }
 
 

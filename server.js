@@ -19,11 +19,13 @@ app.use( express.json() );
 const userRoutes = require('./routes/userRoutes');
 const tournamentRoutes = require('./routes/tournamentRoutes');
 const teamRoutes = require('./routes/teamRoutes');
+const playerRoutes = require('./routes/playerRoutes');
 
 //Routes
 app.use( '/user' , userRoutes );
 app.use( '/tournament' , tournamentRoutes );
-app.use( '/team' ,teamRoutes);
+app.use( '/team' ,teamRoutes );
+app.use( '/player', playerRoutes )
 
 app.get('/', (req, res) => {
     res.send('Hello from AWS Lightsail!');
@@ -32,7 +34,7 @@ app.get('/', (req, res) => {
 
 //Create or check if database is currently created
 //server to init and listen on port   
-db.sequelize.sync({force: true}).then(() => {
+db.sequelize.sync({force: false}).then(() => {
     app.listen(PORT, () => {
       console.log(`App listening on port ${PORT}!`);
     });

@@ -13,11 +13,15 @@ module.exports = ( sequelize, DataTypes ) => {
 
     //Create associate helper function
     Team.associate = ( db ) => {
+        //N:M through a join table
         Team.belongsToMany( db.Tournament, { through: db.TeamTournament } );
-        Team.hasMany( db.Player, { foreignKey: 'team_id' });
+        //1:M 
+        Team.hasMany( db.Player, { foreignKey: 'teamId', as: 'Players' });
+
+        
         Team.hasMany( db.Match, { foreignKey: 'home_team_id', as: 'HomeMatches' });
         Team.hasMany( db.Match, { foreignKey: 'away_team_id', as: 'AwayMatches' });
-        Team.hasMany( db.Standing, { foreignKey: 'team_id' });
+        Team.hasMany( db.Standing, { foreignKey: 'teamId' });
         Team.hasMany( db.MatchResult, { foreignKey: 'winner_team_id', as: 'wins' });
     }
 
