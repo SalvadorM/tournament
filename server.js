@@ -20,12 +20,16 @@ const userRoutes = require('./routes/userRoutes');
 const tournamentRoutes = require('./routes/tournamentRoutes');
 const teamRoutes = require('./routes/teamRoutes');
 const playerRoutes = require('./routes/playerRoutes');
+const matchRoutes = require('./routes/matchRoutes')
+const matchResultRoutes = require('./routes/matchResultsRoutes')
 
 //Routes
 app.use( '/user' , userRoutes );
 app.use( '/tournament' , tournamentRoutes );
 app.use( '/team' ,teamRoutes );
-app.use( '/player', playerRoutes )
+app.use( '/player', playerRoutes );
+app.use( '/match', matchRoutes );
+app.use( '/matchresults', matchResultRoutes);
 
 app.get('/', (req, res) => {
     res.send('Hello from AWS Lightsail!');

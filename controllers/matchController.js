@@ -57,8 +57,8 @@ class matchController {
             const match = Match.findByPk(
                 matchId, {
                     include: [
-                        { model: Team, as: 'homeTeam' },
-                        { model: Team, as: 'awayTeam' },
+                        { model: Team, as: 'home_team_id' },
+                        { model: Team, as: 'away_team_id' },
                         { model: MatchResult },
                     ]
                 }
@@ -75,4 +75,4 @@ class matchController {
 
 }
 
-module.exports = new matchController
+module.exports = new matchController;
