@@ -1,5 +1,5 @@
 'use strict';
-
+  
 const db = require('../config/database');
 const Player = db.Player;
 const Team = db.Team;
@@ -21,7 +21,6 @@ class playerController {
         catch ( error ){
             console.log(error);
             res.status(500).json({ error: 'Server error', errorData: error})
-
         }
     }
 
@@ -79,9 +78,9 @@ class playerController {
                 return res.status(404).json({success: false, error: 'Player not found'})
             }
 
-            await Player.update({name, teamId})
+            await player.update({name, teamId})
             res.json({ success: true, data: player})
-            
+
         } catch( error ){
             console.log( error )
             res.status(400).json( {success: false, error} );
