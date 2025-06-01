@@ -17,7 +17,7 @@ class matchResultsController {
             return res.status(400).json({success: false,  error: 'Result already exists for this match' });
             }
 
-            const newResult = await MatchResult({
+            const newResult = await MatchResult.create({
                 match_id,
                 home_score, 
                 away_score,
@@ -39,8 +39,13 @@ class matchResultsController {
 
             const result = await MatchResult.findByPk(matchResultsId, {
                 include: [
-                    { model: Match },
-                    { model: Team, as: 'winner_team_id' }
+                    { model: Match,
+                        include: [
+                            { model: Team, as: 'homeTeam' },
+                            { model: Team, as: 'awayTeam' }
+                        ]
+                     },
+                    { model: Team, as: 'Winner' }
                 ]
                 });
 

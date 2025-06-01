@@ -42,7 +42,7 @@ class matchController {
                 status
             })
 
-            res.json({ success: true, data, newMatch })
+            res.json({ success: true, data: newMatch })
 
         } catch( error ){
             console.log( error )

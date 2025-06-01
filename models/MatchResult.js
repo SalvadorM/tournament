@@ -29,7 +29,7 @@ module.exports = ( sequelize, DataTypes ) => {
     //create helper association helper
     MatchResult.associate = ( db ) => {
         MatchResult.belongsTo(db.Match, { foreignKey: 'match_id' });
-        MatchResult.belongsTo(db.Team, { foreignKey: 'winner_team_id' });
+        MatchResult.belongsTo(db.Team, { foreignKey: 'winner_team_id', as: 'Winner' });
     }
 
     return MatchResult;
