@@ -59,6 +59,47 @@ class matchResultsController {
         }
     }
 
+    //@route    GET matchresults/tournament/:tournamentId
+    //@desc     get match results for tournament
+    async getAllMatchesTournament( req, res ){
+        try {
+            const { tournamentId } = req.params 
+            const results = await MatchResult.findAll({
+                include: [
+                    { model: Match,
+                        where: { tournamentId }
+                     },
+                    { model: Team, as: 'Winner' }
+                ]
+            });
+            
+            res.json({ success: true, data: results });
+
+        } catch( error ) {
+            console.log(error);
+            res.status(500).json({ error: 'Server error', errorData: error})
+        }
+    }
+
+    //@route     PUT matchresults/:matchResultsId
+    //@desc      Update match results base on matchResultsId and body data
+    async updateMatchResult( req, res ){
+        try {
+            const { matchResultsId } = req.params;
+            const { home_score, away_score, winner_team_id } = req.body;
+
+            const result = await MatchResult.findByPk(matchResultsId);
+            if (!result) return res.status(404).json({success: false, error: 'Match result not found' });
+
+            await result.update({ home_score, away_score, winner_team_id });
+
+            res.json(result);
+        } catch( error ) {
+            console.log( error )
+            res.status(400).json( {success: false, error} );    
+        }
+    }
+
 
 }
 

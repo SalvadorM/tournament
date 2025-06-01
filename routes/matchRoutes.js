@@ -15,4 +15,7 @@ router.post('/create', matchController.createMatch );
 //@route    GET /match/:matchId
 router.get('/:matchId', matchController.getSingleMatch );
 
+//@route    PUT /match/update/:matchId
+router.put('/update/:matchId', matchController.updateMatch );
+
 module.exports = router;

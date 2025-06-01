@@ -51,21 +51,20 @@ class matchController {
     }
 
     //@route    GET /match/:matchId
+    //@desc     get single match details based on matchId
     async getSingleMatch( req, res ){
         try {
             const { matchId } = req.params;
-            const match = Match.findByPk(
-                matchId, {
-                    include: [
-                        { model: Team, as: 'home_team_id' },
-                        { model: Team, as: 'away_team_id' },
-                        { model: MatchResult },
-                    ]
-                }
-            )
+            const match = await Match.findByPk(matchId, {
+                include: [
+                    { model: Team, as: 'homeTeam' },
+                    { model: Team, as: 'awayTeam' },
+                    { model: MatchResult },
+                ]
+            })
 
             if ( !match ) return res.status(404).json({ success: false, error: 'Match not found'})
-            
+            console.log( match )
             res.json({ success: true, data: match })
         }catch( error ){
             console.log( error )
@@ -73,6 +72,17 @@ class matchController {
         }
     }
 
+
+    //@route    PUT /match/update/:matchId
+    //@desc     update single match details based on matchId
+    async updateMatch( req, res ){
+        try {
+
+        } catch( error ){
+            console.log( error )
+            res.status(400).json( {success: false, error} );  
+        }
+    }
 }
 
 module.exports = new matchController;
