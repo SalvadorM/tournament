@@ -77,7 +77,15 @@ class matchController {
     //@desc     update single match details based on matchId
     async updateMatch( req, res ){
         try {
+            const { matchId } = req.params;
+            const { tournamentId, home_team_id, away_team_id, status } = req.body;
 
+            const match = await Match.findByPk(matchId);
+            if (!match) return res.status(404).json({ error: 'Match not found' });
+
+            await match.update({ tournamentId, home_team_id, away_team_id, status });
+
+            res.json(match);
         } catch( error ){
             console.log( error )
             res.status(400).json( {success: false, error} );  
