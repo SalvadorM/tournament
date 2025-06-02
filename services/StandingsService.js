@@ -20,6 +20,7 @@ class StandingsService {
                     transaction
                 }
             )
+
             //If match is not complete or no results throw error
             if (!match || match.status !== 'completed' || !match.matchresult) {
                 throw new Error('Match is not completed or result is missing.');

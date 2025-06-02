@@ -4,6 +4,7 @@ const db = require('../config/database');
 const MatchResult = db.MatchResult;
 const Match = db.Match
 const Team = db.Team
+const standingsService = require('../services/StandingsService')
 
 class matchResultsController {
     
@@ -100,7 +101,32 @@ class matchResultsController {
         }
     }
 
+    //@route     PUT matchresults/completed
+    //@desc      Update match result 
+    async updateMatchCompleted( req, res ){
+        try {
+            const { matchId, status } = req.body
 
+            const match = await Match.findByPk(matchId);
+            if (!match) return res.status(404).json({ error: 'Match not found' });
+
+            await match.update({ status });
+
+            if ( status == 'completed' ){
+                const success = await standingsService.updateStandingOnMatchComplete( matchId, status)
+    
+                if (success) {
+                    res.status(200).json({ success: true, message: 'Standings updated successfully.' });
+                } else {
+                    res.status(500).json({ success: false,  error: 'Failed to update standings.' });
+                }
+            }
+
+        }catch( error ) {
+            console.log( error )
+            res.status(400).json( {success: false, error} );         
+        }
+    }
 }
 
 module.exports = new matchResultsController;

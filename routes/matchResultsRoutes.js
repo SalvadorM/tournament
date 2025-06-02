@@ -16,6 +16,10 @@ router.post('/create', matchResultsController.createMatchResult)
 router.get('/tournament/:tournamentId', matchResultsController.getAllMatchesTournament );
 
 //route     PUT matchresults/:matchResultsId
-router.put( '/update/:matchResultsId', matchResultsController.updateMatchResult )
+router.put('/update/:matchResultsId', matchResultsController.updateMatchResult )
+
+//route     PUT matchresults/completed
+router.put('/completed', matchResultsController.updateMatchCompleted );
+
 
 module.exports = router;

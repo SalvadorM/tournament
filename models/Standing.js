@@ -48,20 +48,20 @@ module.exports = ( sequelize, DataTypes ) => {
             allowNull: false,
             defaultValue: 0,
         }
-    }, {
-        indexes: [
-            {
-                unique: true,
-                fields: ['tournamentId', 'team_id']
+        }, {
+            indexes: [
+                {
+                    unique: true,
+                    fields: ['tournamentId', 'team_id']
+                }
+            ],
+            hooks: {
+                beforeSave: (standing) => {
+                    // Automatically calculate goal difference
+                    standing.goal_difference = standing.goals_for - standing.goals_against;
+                }
             }
-        ],
-        hooks: {
-            beforeSave: (standing) => {
-                // Automatically calculate goal difference
-                standing.goal_difference = standing.goals_for - standing.goals_against;
-            }
-        }
-    });
+        });
 
     //create helper association helper
     Standing.associate = ( db ) => {
