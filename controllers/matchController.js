@@ -64,7 +64,6 @@ class matchController {
             })
 
             if ( !match ) return res.status(404).json({ success: false, error: 'Match not found'})
-            console.log( match )
             res.json({ success: true, data: match })
         }catch( error ){
             console.log( error )

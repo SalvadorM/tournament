@@ -11,13 +11,14 @@ class StandingsService {
     async updateStandingOnMatchComplete( matchId ){
 
         //To ensure both updates succeed together or fail together, wrap them in a transaction:
-        const standingTransaction = sequelize.transaction();
+        const standingTransaction = await sequelize.transaction();
 
         try {
             const match = Match.findByPk( 
-                matchId, {
+                matchId, 
+                {
                     include: [ MatchResult ],
-                    transaction
+                    transaction: standingTransaction
                 }
             )
 
@@ -52,7 +53,7 @@ class StandingsService {
                         goals_against: 0,
                         matches_played: 0,
                     },
-                    transaction,
+                    transaction: standingTransaction,
                 });
 
                 standing.matches_played += 1;
@@ -69,7 +70,7 @@ class StandingsService {
                     standing.losses += 1;
                 }
 
-                await standing.save({ transaction });
+                await standing.save({ transaction: standingTransaction });
                 
             }
 
@@ -79,11 +80,11 @@ class StandingsService {
                 updateStanding(away_team_id, false),
             ]);
 
-            await transaction.commit();
+            await standingTransaction.commit();
             console.log('Standings updated successfully with transaction');
             return true
         } catch( error ){
-            await transaction.rollback();
+            await standingTransaction.rollback();
             console.error('Transaction failed - rolled back standings update:', error.message);
             return false
         }

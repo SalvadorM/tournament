@@ -15,7 +15,7 @@ router.post('/create', matchResultsController.createMatchResult)
 //route     GET matchresults/tournament/:tournamentId
 router.get('/tournament/:tournamentId', matchResultsController.getAllMatchesTournament );
 
-//route     PUT matchresults/:matchResultsId
+//route     PUT matchresults/update/:matchResultsId
 router.put('/update/:matchResultsId', matchResultsController.updateMatchResult )
 
 //route     PUT matchresults/completed
