@@ -14,7 +14,7 @@ class StandingsService {
         const standingTransaction = await sequelize.transaction();
 
         try {
-            const match = Match.findByPk( 
+            const match = await Match.findByPk( 
                 matchId, 
                 {
                     include: [ MatchResult ],
@@ -84,8 +84,9 @@ class StandingsService {
             console.log('Standings updated successfully with transaction');
             return true
         } catch( error ){
-            await standingTransaction.rollback();
-            console.error('Transaction failed - rolled back standings update:', error.message);
+            console.error('🛑 Transaction failed:', error.message);
+            console.error(error.stack);
+            if (standingTransaction) await standingTransaction.rollback();
             return false
         }
     }
