@@ -4,7 +4,7 @@ module.exports = ( sequelize, DataTypes ) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        team_id: {
+        teamId: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
@@ -52,7 +52,7 @@ module.exports = ( sequelize, DataTypes ) => {
             indexes: [
                 {
                     unique: true,
-                    fields: ['tournamentId', 'team_id']
+                    fields: ['tournamentId', 'teamId']
                 }
             ],
             hooks: {
@@ -66,7 +66,7 @@ module.exports = ( sequelize, DataTypes ) => {
     //create helper association helper
     Standing.associate = ( db ) => {
         Standing.belongsTo(db.Tournament, { foreignKey: 'tournamentId' });
-        Standing.belongsTo(db.Team, { foreignKey: 'team_id' });
+        Standing.belongsTo(db.Team, { foreignKey: 'teamId' });
     }
 
     return Standing;

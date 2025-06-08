@@ -43,7 +43,7 @@ class StandingsService {
                 const isLoss = !isWin && !isDraw;
 
                 const [standing] = await Standing.findOrCreate({
-                    where: { team_id: teamId, tournamentId },
+                    where: { teamId, tournamentId },
                     defaults: {
                         points: 0,
                         wins: 0,

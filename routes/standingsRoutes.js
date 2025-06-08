@@ -8,7 +8,10 @@ const standingsController = require('../controllers/standingsController')
 const router = express.Router();
 
 //route     /standings/:tournamentId
-router.use('/:tournamentId', standingsController.getTournamentStandings );
+router.get('/:tournamentId', standingsController.getTournamentStandings );
+
+//route     /standings/formatted/:tournamentId
+router.get('/formatted/:tournamentId', standingsController.getTableStandings );
 
 
 module.exports = router;
