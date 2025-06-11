@@ -1,7 +1,8 @@
 
 # Salvador Munoz Portfolio
 
-Personal portfolio app - showcasing front-end dev skills by using React and React Three Fiber to load GLTF models as JSX Components and manipulate with user interactivity.
+A Node.js + Express REST API using Sequelize and SQLite to manage tournaments, matches, results, and standings.
+
 
 
 
